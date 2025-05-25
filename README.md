@@ -16,7 +16,9 @@
 <p>
   🔗 <a href="https://lookerstudio.google.com/s/iqQLXjPuc5M" target="_blank" rel="noopener noreferrer">Explore the interactive dashboard on Looker Studio</a>
 </p>
-
+<p>
+  🔗 <a href="https://hr-workforce-analysis.netlify.app" target="_blank" rel="noopener noreferrer">View the live project</a>
+</p>
 <hr />
 
 <h2>📸 Project Screenshots</h2>
