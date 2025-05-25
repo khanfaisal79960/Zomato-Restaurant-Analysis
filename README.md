@@ -24,10 +24,8 @@
 <h2>📸 Project Screenshots</h2>
 
 <p align="center">
-  <img src="assets/snapshort.jpg" alt="Dashboard Snapshot" width="500" height="300" style="margin-bottom: 20px;" />
+  <img src="assets/snapshot.jpg" alt="Dashboard Snapshot" width="500" height="300" style="margin-bottom: 20px;" />
   <br />
-  <img src="" alt="Additional screenshot" width="400" height="400" style="margin-right: 20px;" />
-  <img src="" alt="Additional screenshot" width="400" height="400" />
 </p>
 
 <hr />
