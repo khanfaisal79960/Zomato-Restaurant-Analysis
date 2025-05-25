@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato Data Analysis Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa; /* Light grey background */
+            color: #343a40; /* Dark text */
+        }
+        .cover-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Zomato Red Theme */
+            background: linear-gradient(rgba(207, 2, 2, 0.8), rgba(207, 2, 2, 0.8)), url('https://via.placeholder.com/1500x800/8B0000/FFFFFF?text=Zomato+Pattern') no-repeat center center/cover;
+            color: white;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Zomato_logo.png/800px-Zomato_logo.png') no-repeat center center; /* Placeholder for Zomato logo pattern */
+            background-size: 300px;
+            opacity: 0.1; /* Subtle overlay */
+            pointer-events: none;
+        }
+        .cover-page h1 {
+            font-size: 5rem; /* Larger font size */
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+            z-index: 1; /* Ensure text is above overlay */
+        }
+        .cover-page p {
+            font-size: 1.8rem; /* Larger font size */
+            margin-bottom: 10px;
+            opacity: 0.95;
+            z-index: 1;
+        }
+        .section-header {
+            background-color: #fcebeb; /* Light red for section headers */
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #cf0202; /* Zomato red border */
+        }
+        .section-header h2 {
+            color: #cf0202; /* Zomato red for headings */
+            font-weight: 600;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+        .content-section {
+            padding: 40px 0;
+            background-color: #ffffff;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #cf0202; /* Accent border */
+        }
+        .content-section h3 {
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .content-section p, .content-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5a6268;
+        }
+        .chart-placeholder {
+            width: 100%;
+            height: 400px; /* Fixed height for charts */
+            background-color: #dee2e6; /* Light grey placeholder */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #6c757d;
+            border-radius: 5px;
+            margin-top: 20px;
+            border: 1px dashed #adb5bd;
+            overflow: hidden; /* Ensure image fits */
+        }
+        .chart-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Keep aspect ratio */
+        }
+        .list-unstyled li {
+            margin-bottom: 10px;
+        }
+        .navbar {
+            background-color: #212529 !important; /* Darker navbar for contrast */
+        }
+        .navbar-brand {
+            color: #ffffff !important;
+            font-weight: 700;
+        }
+        .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="cover-page">
+        <div class="container">
+            <h1 class="display-1">Zomato Data Analysis Report</h1>
+            <p class="lead">Uncovering Actionable Insights from Restaurant Data</p>
+            <p class="text-white-50">Author: Khan Faisal | Date: May 25, 2025</p>
+        </div>
+    </section>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Zomato Report</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#executive-summary">Executive Summary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#data-overview">Data Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#problem-statements">Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#conclusion">Conclusion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+
+        <section id="executive-summary" class="section-header">
+            <h2>Executive Summary</h2>
+        </section>
+        <section class="content-section p-4">
+            <p>This report presents a comprehensive analysis of Zomato restaurant data, focusing on key aspects such as geographic distribution, service availability (online delivery and table booking), restaurant rating trends, popular cuisines, and average dining costs. The objective is to identify significant patterns and derive actionable insights that can inform business strategies and enhance user experience on the Zomato platform.</p>
+            <p>Preliminary findings highlight the strong concentration of Zomato's operations in specific countries and cities, indicating potential for expansion or deeper market penetration. The analysis also sheds light on the prevalence of online delivery versus table booking options, the overall quality perception of listed restaurants through their aggregate ratings, and the diversity and popularity of cuisine types. Understanding the typical price ranges helps in segmenting the market and catering to various customer preferences. This report concludes with a summary of these insights and offers recommendations for future business growth.</p>
+        </section>
+
+        <section id="data-overview" class="section-header">
+            <h2>Data Overview</h2>
+        </section>
+        <section class="content-section p-4">
+            <h3>Source and Description of the Dataset</h3>
+            <p>The dataset used for this analysis is derived from Zomato's restaurant listings, provided in CSV format. It contains detailed information about various restaurants, including their geographical location, cuisine types, service offerings, pricing, and user ratings. The primary dataset is <code>zomato_data.xlsx - Sheet1.csv</code>.</p>
+
+            <h3>Key Statistics</h3>
+            <ul class="list-unstyled">
+                <li><strong>Total Restaurants:</strong> [To be calculated from <code>RestaurantID</code> column]</li>
+                <li><strong>Countries Covered:</strong> [To be calculated from unique values in <code>CountryCode</code> column, e.g., '1' for India, '166' for Qatar. The dataset primarily focuses on restaurants from India and Qatar based on initial snippets.]</li>
+                <li><strong>Unique Cuisines:</strong> [To be calculated from unique entries in the <code>Cuisines</code> column, which can be comma-separated values.]</li>
+                <li><strong>Average Rating:</strong> [To be calculated from the <code>Rating</code> column, taking into account how 'Votes' and 'Rating' are related.]</li>
+                <li><strong>Average Cost for Two:</strong> [To be calculated from the <code>Average_Cost_for_two</code> column.]</li>
+            </ul>
+
+            <h3>Data Limitations</h3>
+            <p>The dataset presents some limitations that are important to acknowledge:</p>
+            <ul>
+                <li><strong>Missing Data:</strong> Some entries in the <code>Longitude</code> and <code>Latitude</code> columns appear to be '0', which might indicate missing or invalid geographical coordinates for those restaurants.</li>
+                <li><strong>'0' Values in 'Votes' and 'Rating':</strong> The <code>Votes</code> column contains '0' values, suggesting that some restaurants have not received any user ratings. The <code>Rating</code> column also contains '1' as a rating, which is the lowest possible rating, and needs to be distinguished from unrated restaurants. For analysis purposes, restaurants with '0' votes are typically excluded from average rating calculations to avoid skewing results.</li>
+                <li><strong>Multi-value 'Cuisines':</strong> The <code>Cuisines</code> column often contains multiple cuisine types separated by commas. This requires careful parsing to accurately count and analyze individual cuisine popularity.</li>
+                <li><strong>Currency Conversion:</strong> Different currencies are present (e.g., Indian Rupees, Qatari Rial), which would require conversion for cross-country cost comparisons, but for within-country analysis, the original currency can be used.</li>
+            </ul>
+        </section>
+
+        <section id="problem-statements" class="section-header">
+            <h2>Chart-wise Problem Statements & Analysis</h2>
+        </section>
+
+        <section class="content-section p-4">
+            <h3>4.1. Geographic Distribution of Restaurants</h3>
+            <p><strong>Problem Statement:</strong> Where are Zomato's operations most concentrated geographically (by country and city)?</p>
+            <p><strong>Brief Answer:</strong> Zomato's operations are heavily concentrated in specific countries, with a significant presence in their major cities. This analysis will identify the top countries and cities by the number of listed restaurants.</p>
+            <p><strong>Detailed Answer:</strong> By analyzing the <code>CountryCode</code> and <code>City</code> columns, we can determine the distribution of restaurants across different geographical regions. A visual representation, such as a bar chart, would effectively illustrate the countries and cities with the highest number of Zomato-listed restaurants, highlighting areas of high market saturation and potential areas for expansion.</p>
+            <div class="chart-placeholder">
+                <img src="../assets/geographic.png" alt="Placeholder for Geographic Distribution Chart">
+            </div>
+        </section>
+
+        <section class="content-section p-4">
+            <h3>4.2. Online Delivery & Table Booking Availability</h3>
+            <p><strong>Problem Statement:</strong> How does Zomato's business split between facilitating online ordering and table booking?</p>
+            <p><strong>Brief Answer:</strong> The data indicates a notable split between restaurants offering online delivery and those providing table booking services, reflecting Zomato's dual business model.</p>
+            <p><strong>Detailed Answer:</strong> By examining the <code>Has_Online_delivery</code> and <code>Has_Table_booking</code> columns, we can quantify the proportion of restaurants that offer each service. This insight is crucial for understanding Zomato's service emphasis and market positioning. A pie chart or bar chart would clearly show the percentage distribution of restaurants offering these services, and also those offering both or neither.</p>
+            <div class="chart-placeholder">
+                <img src="../assets/table_online.png" alt="Placeholder for Online Delivery & Table Booking Chart">
+            </div>
+        </section>
+
+        <section class="content-section p-4">
+            <h3>4.3. Restaurant Rating Distribution</h3>
+            <p><strong>Problem Statement:</strong> What is the general quality perception of restaurants on Zomato, and what is the distribution of their aggregate ratings?</p>
+            <p><strong>Brief Answer:</strong> The aggregate ratings on Zomato show a diverse perception of quality among restaurants, with concentrations in certain rating bands.</p>
+            <p><strong>Detailed Answer:</strong> Analyzing the <code>Rating</code> and <code>Votes</code> columns provides insights into customer satisfaction. We can calculate the frequency of each rating value (e.g., 1.0, 2.0, 3.0, 4.0, 5.0) to understand the overall sentiment. A histogram or bar chart of rating distribution would visualize the most common rating scores, indicating the perceived quality of restaurants on the platform. It's important to consider restaurants with '0' votes as unrated to ensure accuracy in quality perception.</p>
+            <div class="chart-placeholder">
+                <img src="../assets/avg_rat.png" alt="Placeholder for Restaurant Rating Distribution Chart">
+            </div>
+        </section>
+
+        <section class="content-section p-4">
+            <h3>4.4. Top Cuisines</h3>
+            <p><strong>Problem Statement:</strong> What are the most popular cuisine types available/ordered on Zomato?</p>
+            <p><strong>Brief Answer:</strong> Certain cuisine types dominate the Zomato platform, reflecting popular consumer preferences in the regions covered.</p>
+            <p><strong>Detailed Answer:</strong> By parsing the <code>Cuisines</code> column, which often lists multiple cuisines per restaurant, we can identify the most frequently occurring cuisine types. Counting the occurrences of each unique cuisine will reveal the top popular choices. A bar chart of the top N cuisines would effectively illustrate these trends, providing valuable information for both restaurants and Zomato in understanding market demand.</p>
+            <div class="chart-placeholder">
+                <img src="../assets/cuisine.png" alt="Placeholder for Top Cuisines Chart">
+            </div>
+        </section>
+
+        <section class="content-section p-4">
+            <h3>4.5. Average Cost for Two Distribution</h3>
+            <p><strong>Problem Statement:</strong> What is the typical price range for dining at restaurants listed on Zomato?</p>
+            <p><strong>Brief Answer:</strong> The average cost for two people at Zomato-listed restaurants varies, indicating different price segments and target audiences.</p>
+            <p><strong>Detailed Answer:</strong> Analyzing the <code>Average_Cost_for_two</code> column allows us to understand the pricing landscape of restaurants on Zomato. We can visualize the distribution of these costs using a histogram or box plot to identify common price ranges and outliers. This analysis helps in understanding the affordability and market segmentation of the restaurants on the platform.</p>
+            <div class="chart-placeholder">
+                <img src="../assets/avg_rat.png" alt="Placeholder for Average Cost for Two Chart">
+            </div>
+        </section>
+
+        <section id="conclusion" class="section-header">
+            <h2>Conclusion & Recommendations</h2>
+        </section>
+        <section class="content-section p-4">
+            <h3>Summary of Overall Insights</h3>
+            <p>The analysis of the Zomato dataset has provided valuable insights into the platform's operational footprint, service offerings, customer perceptions of quality, and culinary trends. We've observed the geographic concentration of restaurants, the balance between online delivery and table booking, the general distribution of restaurant ratings, the prominence of certain cuisine types, and the varying price points for dining experiences. These findings collectively paint a picture of Zomato's current market position and highlight areas of strength and potential growth.</p>
+
+            <h3>Potential Business Recommendations Based on Findings</h3>
+            <ul class="list-unstyled">
+                <li><strong>Targeted Expansion:</strong> Leverage insights from geographic distribution to identify underserved cities or countries for future expansion, or to deepen market penetration in existing high-concentration areas.</li>
+                <li><strong>Service Optimization:</strong> Based on the split between online delivery and table booking, Zomato could further optimize its marketing and feature development efforts, potentially focusing on strengthening the more popular service or boosting the less utilized one.</li>
+                <li><strong>Quality Improvement Initiatives:</strong> Analyze rating distribution to identify restaurants with lower average ratings. Zomato could implement programs or provide resources to help these establishments improve their quality and customer satisfaction.</li>
+                <li><strong>Cuisine Trend Exploitation:</strong> Capitalize on the popularity of top cuisines by promoting related restaurants, organizing cuisine-specific food festivals, or encouraging new restaurants to offer these in-demand food types.</li>
+                <li><strong>Pricing Strategy Refinement:</strong> Use the average cost distribution to develop targeted promotions or loyalty programs for different price segments, catering to both budget-conscious and high-end diners.</li>
+                <li><strong>Data Quality Enhancement:</strong> Address data limitations, such as missing geographical coordinates and '0' votes, to ensure more accurate and robust future analyses.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
