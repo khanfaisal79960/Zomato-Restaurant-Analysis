@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zomato Data Analysis Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS from the previous design for vibrant colors, animations, and unique designs */
+        :root {
+            --primary-color: #6a0dad; /* Deep Purple */
+            --secondary-color: #ff6f61; /* Coral */
+            --accent-color: #00bcd4; /* Cyan */
+            --background-light: #f8f9fa;
+            --background-dark: #212529;
+            --text-light: #343a40;
+            --text-dark: #e9ecef;
+            --gradient-bg: linear-gradient(45deg, #6a0dad, #ff6f61);
+            --card-bg: #ffffff;
+            --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .navbar {
+            background: var(--gradient-bg);
+            box-shadow: var(--card-shadow);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .hero-section {
+            background: var(--gradient-bg);
+            color: var(--text-dark);
+            padding: 80px 0;
+            text-align: center;
+            border-radius: 0 0 50px 50px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--card-bg);
+            margin-bottom: 30px;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 15px 20px;
+        }
+
+        .dashboard-embed, .report-content {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .dashboard-embed iframe {
+            width: 100%;
+            height: 600px; /* Adjust height as needed */
+            border: none;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-point {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .data-point:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .data-point h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .data-point p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .placeholder-chart {
+            height: 300px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .placeholder-chart i {
+            margin-bottom: 10px;
+        }
+
+
+        .footer {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+            padding: 40px 0;
+            text-align: center;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .dashboard-embed iframe {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-utensils me-2"></i> Zomato Analysis
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#report">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#insights">Insights</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Zomato Data Analysis Report</h1>
+            <p class="lead">Unveiling key trends and patterns in restaurant data to enhance user experience and business strategy.</p>
+            <p class="lead-small"><strong>Date:</strong> May 25, 2025 | <strong>Prepared by:</strong> Khan Faisal</p>
+            <a href="#report" class="btn btn-primary-custom">Explore Insights <i class="fas fa-arrow-right ms-2"></i></a>
+        </div>
+    </section>
+
+    <main class="container my-5">
+
+        <section id="overview" class="mb-5">
+            <h2 class="section-title">Executive Summary</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="data-point">
+                        <i class="fas fa-store fa-2x mb-2"></i>
+                        <h3>9.5K+</h3>
+                        <p>Total Restaurants Analyzed</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="data-point">
+                        <i class="fas fa-star fa-2x mb-2"></i>
+                        <h3>2.89</h3>
+                        <p>Average Rating</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="data-point">
+                        <i class="fas fa-globe-americas fa-2x mb-2"></i>
+                        <h3>15</h3>
+                        <p>Countries Covered</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-4">
+                <p>This report provides a comprehensive analysis of Zomato restaurant data, covering critical aspects such as geographical distribution, restaurant ratings, service offerings (table booking and online delivery), popular cuisines, and average cost for two. The primary objective is to extract actionable insights that can help Zomato optimize its platform, enhance user experience, and drive business growth.</p>
+                <h5>Key Findings:</h5>
+                <ul>
+                    <li><strong>Geographic Concentration:</strong> A significant majority of restaurants are concentrated in India, particularly New Delhi, highlighting a mature market presence.</li>
+                    <li><strong>Rating Distribution:</strong> The majority of restaurants fall within the 3-4 rating bracket, indicating a generally satisfactory but not exceptional dining experience for most users.</li>
+                    <li><strong>Online Delivery Dominance:</strong> Online delivery is a more prevalent service than table booking, reflecting current consumer preferences and potentially offering avenues for further optimization.</li>
+                    <li><strong>Cuisine Popularity:</strong> North Indian, Chinese, and Fast Food cuisines dominate the restaurant landscape, suggesting strong demand in these categories.</li>
+                    <li><strong>Cost Trends:</strong> The distribution of average cost for two reveals varied pricing strategies across cities, catering to diverse customer segments.</li>
+                </ul>
+                <h5>Recommendations:</h5>
+                <ul>
+                    <li>Strategically expand into under-represented regions while solidifying presence in high-concentration areas.</li>
+                    <li>Optimize service offerings based on popularity, potentially investing more in online delivery infrastructure or promoting table booking in specific niches.</li>
+                    <li>Implement quality improvement initiatives for restaurants with lower ratings to elevate overall platform quality.</li>
+                    <li>Capitalize on popular cuisine trends through targeted promotions and support for new restaurant onboarding.</li>
+                    <li>Refine pricing strategies to cater to various customer segments and enhance competitiveness.</li>
+                    <li>Address data limitations to improve the accuracy and robustness of future analyses.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="dashboard" class="mb-5">
+            <h2 class="section-title">Interactive Dashboard</h2>
+            <div class="dashboard-embed">
+                <iframe width="600" height="338" src="https://lookerstudio.google.com/embed/reporting/54eba0b5-ef36-484e-8c48-96c2ff3bbff9/page/X1mLF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+                <div class="text-center mt-3 text-muted">
+                    <small>This dashboard provides interactive views of the bank loan data.</small>
+                </div>
+            </div>
+        </section>
+
+        <section id="report" class="mb-5">
+            <h2 class="section-title">Detailed Analysis Report</h2>
+            <div class="report-content">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-info-circle me-2"></i> Introduction
+                    </div>
+                    <div class="card-body">
+                        <h5>Objective of the Report</h5>
+                        <p>This report aims to conduct a comprehensive data analysis of Zomato's restaurant dataset to derive actionable insights into restaurant distribution, customer preferences, and operational trends. The goal is to provide a clear, data-driven understanding that supports strategic decision-making for platform enhancements, marketing efforts, and business expansion.</p>
+                        <h5>Background / Context</h5>
+                        <p>In the highly competitive food delivery and restaurant discovery market, understanding granular data is paramount. Zomato, as a leading platform, generates vast amounts of data that, when analyzed effectively, can reveal critical patterns in consumer behavior, market saturation, and service effectiveness. This report leverages such data to offer a deeper look into the operational landscape.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-database me-2"></i> Data Overview
+                    </div>
+                    <div class="card-body">
+                        <h5>Data Sources</h5>
+                        <p>The analysis is based on the provided Zomato dataset, which includes information on restaurants, their locations, cuisines, ratings, average costs, and available services.</p>
+                        <h5>Data Collection Methods</h5>
+                        <p>The dataset was provided as a pre-collected file. The original data collection methods are assumed to be standard practices for a platform like Zomato, involving restaurant registrations, user reviews, and internal operational data.</p>
+                        <h5>Data Cleaning and Preparation</h5>
+                        <p>The provided dataset is assumed to have undergone initial cleaning and preparation, addressing issues such as missing values, data type consistency, and outliers, to ensure its readiness for analysis.</p>
+                    </div>
+                </div>
+
+                <h3 class="mt-4 mb-3 text-center" style="color: var(--primary-color);">Key Analysis Areas & Visualizations</h3>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-map-marked-alt me-2"></i> 1. Restaurant Distribution by Country
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Analysis:</strong> This section examines the geographical spread of Zomato-listed restaurants across different cities, highlighting areas of high concentration and potential growth markets.</p>
+                        <div class="placeholder-chart">
+                            <img src="../assets/geographic.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-2"></i> 2. Restaurant Rating Distribution
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Analysis:</strong> An overview of how restaurants are rated by users, segmented into various rating buckets to understand overall customer satisfaction levels.</p>
+                        <div class="placeholder-chart">
+                            <img src="../assets/avg_rat.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-book-open me-2"></i> 3. Table Booking Availability
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Analysis:</strong> This segment explores the proportion of restaurants offering table booking services, providing insight into user convenience and operational models.</p>
+                        <div class="placeholder-chart">
+                            <img src="../assets/table_online.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-motorcycle me-2"></i> 4. Online Delivery Availability
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Analysis:</strong> An examination of the prevalence of online food delivery services among restaurants, reflecting market demand and operational trends in delivery.</p>
+                        <div class="placeholder-chart">
+                            <img src="../assets/table_online.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-pizza-slice me-2"></i> 5. Popular Cuisines Analysis
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Analysis:</strong> Identifies the most frequently offered and searched cuisines, indicating consumer preferences and market saturation in specific food categories.</p>
+                        <div class="placeholder-chart">
+                            <img src="../assets/cuisine.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-rupee-sign me-2"></i> 6. Average Cost for Two Distribution
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Analysis:</strong> Explores the distribution of average dining costs for two people, helping to categorize restaurants by price range and understand affordability trends.</p>
+                        <div class="placeholder-chart">
+                            <img src="../assets/avg_cost.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="insights" class="mb-5">
+            <h2 class="section-title">Key Insights & Recommendations</h2>
+            <div class="report-content">
+                <div class="card mb-4">
+                    <div class="card-header bg-accent text-white">
+                        <i class="fas fa-lightbulb me-2"></i> Insights from Country and City Distribution
+                    </div>
+                    <div class="card-body">
+                        <h5>Findings:</h5>
+                        <ul>
+                            <li>India has the highest number of Zomato-listed restaurants, with New Delhi, Gurgaon, and Noida being the top cities.</li>
+                            <li>A substantial number of countries have very few listed restaurants (e.g., Brazil, Canada, Australia with less than 100).</li>
+                        </ul>
+                        <p><strong>Insight:</strong> Zomato has a deeply saturated market presence in India, particularly in major cities, while other international markets are relatively untapped or less developed.</p>
+                        <p><strong>Recommendation:</strong> Strategically focus expansion efforts on international markets with high growth potential, while in India, pivot to deeper market penetration in tier-2 cities or niche segments.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-accent text-white">
+                        <i class="fas fa-lightbulb me-2"></i> Insights from Rating Distribution
+                    </div>
+                    <div class="card-body">
+                        <h5>Findings:</h5>
+                        <ul>
+                            <li>The majority of restaurants fall into the 3-4 rating bucket (approx. 4.6K restaurants).</li>
+                            <li>A significant number of restaurants also have ratings between 2-3 (approx. 1.4K) and 4-5 (approx. 1.1K).</li>
+                            <li>The 1-2 rating bracket has the fewest restaurants (approx. 1.1K).</li>
+                        </ul>
+                        <p><strong>Insight:</strong> Most Zomato restaurants provide a moderately positive experience (3-4 stars), with a fair number of highly-rated establishments. This indicates a generally good quality platform, but also room for improvement for a segment of restaurants.</p>
+                        <p><strong>Recommendation:</strong> Implement programs to assist restaurants with lower ratings in improving their service and food quality. Highlight and promote highly-rated restaurants more prominently to enhance user trust and satisfaction.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-accent text-white">
+                        <i class="fas fa-lightbulb me-2"></i> Insights from Service Availability (Table Booking & Online Delivery)
+                    </div>
+                    <div class="card-body">
+                        <h5>Findings:</h5>
+                        <ul>
+                            <li>Only about 1.16K restaurants offer table booking, while 8.39K do not.</li>
+                            <li>Conversely, online delivery is available in 7.1K restaurants, compared to 2.45K where it's not.</li>
+                        </ul>
+                        <p><strong>Insight:</strong> Online delivery is a far more prevalent service among Zomato-listed restaurants than table booking. This reflects current consumer preferences for convenience and delivery services.</p>
+                        <p><strong>Recommendation:</strong> Further invest in optimizing the online delivery experience and infrastructure. Explore targeted promotions for table booking in regions or restaurant types where it could be a differentiator.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-accent text-white">
+                        <i class="fas fa-lightbulb me-2"></i> Insights from Top Cuisines
+                    </div>
+                    <div class="card-body">
+                        <h5>Findings:</h5>
+                        <ul>
+                            <li>The top 3 cuisines are North Indian, Chinese, and Fast Food.</li>
+                            <li>Other popular cuisines include Italian, Continental, Cafe, and South Indian.</li>
+                        </ul>
+                        <p><strong>Insight:</strong> There's a clear dominance of a few cuisine types, indicating strong consumer demand and perhaps market saturation in these areas. This also highlights opportunities for promoting diverse or emerging cuisines.</p>
+                        <p><strong>Recommendation:</strong> Capitalize on the popularity of top cuisines by featuring them prominently. Simultaneously, encourage and support restaurants offering less common but growing cuisines to diversify the platform's offerings.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-accent text-white">
+                        <i class="fas fa-lightbulb me-2"></i> Insights from Average Cost for Two
+                    </div>
+                    <div class="card-body">
+                        <h5>Findings:</h5>
+                        <ul>
+                            <li>Costs range widely, with concentrations at lower price points and also higher ranges.</li>
+                            <li>Specific city-wise distribution of average cost for two reveals regional pricing strategies.</li>
+                        </ul>
+                        <p><strong>Insight:</strong> Zomato caters to a wide range of budgets, but understanding the distribution helps in targeted marketing and product development (e.g., premium dining experiences vs. budget-friendly options).</p>
+                        <p><strong>Recommendation:</strong> Develop targeted promotions and loyalty programs based on average cost categories. Utilize this data to guide partnerships with restaurants that fill specific price gaps in certain localities.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-accent text-white">
+                        <i class="fas fa-lightbulb me-2"></i> General Recommendations
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Strategic Expansion:</strong> Identify and prioritize new markets for expansion based on analysis of current restaurant density and consumer demand in unrepresented regions.</li>
+                            <li><strong>Service Optimization:</strong> Based on the split between online delivery and table booking, Zomato could further optimize its marketing and feature development efforts, potentially focusing on strengthening the more popular service or boosting the less utilized one.</li>
+                            <li><strong>Quality Improvement Initiatives:</strong> Analyze rating distribution to identify restaurants with lower average ratings. Zomato could implement programs or provide resources to help these establishments improve their quality and customer satisfaction.</li>
+                            <li><strong>Cuisine Trend Exploitation:</strong> Capitalize on the popularity of top cuisines by promoting related restaurants, organizing cuisine-specific food festivals, or encouraging new restaurants to offer these in-demand food types.</li>
+                            <li><strong>Pricing Strategy Refinement:</strong> Use the average cost distribution to develop targeted promotions or loyalty programs for different price segments, catering to both budget-conscious and high-end diners.</li>
+                            <li><strong>Data Quality Enhancement:</strong> Address data limitations, such as missing geographical coordinates and '0' votes, to ensure more accurate and robust future analyses.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="mb-5">
+            <h2 class="section-title">Conclusion</h2>
+            <div class="report-content">
+                <p>This Zomato Data Analysis Report provides a comprehensive overview of the platform's restaurant landscape, user preferences, and operational dynamics. The insights derived from restaurant distribution, ratings, service availability, popular cuisines, and cost structures offer a strong foundation for strategic decision-making. By leveraging these findings, Zomato can refine its platform, optimize its services, and enhance its market position, ultimately leading to improved user satisfaction and sustainable business growth.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Prepared by Khan Faisal</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
