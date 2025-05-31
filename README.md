@@ -1,74 +1,98 @@
-<h1 align="center" id="title">🍽️ Zomato Restaurant Analysis</h1>
+# 🍔 Zomato Business Analysis Project
 
-<p align="center">
-  <img src="https://socialify.git.ci/khanfaisal79960/Zomato-Restaurant-Analysis/image?language=1&amp;name=1&amp;owner=1&amp;theme=Dark" alt="project-image" />
-</p>
+ **"An insightful dashboard analyzing Zomato's business patterns and restaurant performance."**
 
-<p id="description" align="center" style="max-width: 800px; margin: auto; line-height: 1.6;">
-  This project offers a comprehensive analysis of restaurant data sourced from Zomato, aiming to extract meaningful insights about the food service industry. By leveraging Exploratory Data Analysis (EDA), data visualization, and statistical methods, the project uncovers key trends related to restaurant locations, cuisines, pricing, ratings, and customer preferences.  
-  <br /><br />
-  The analysis highlights patterns in popular cuisines, pricing strategies, and rating distributions across various cities, enabling business owners, customers, and stakeholders to make informed decisions. Furthermore, the project explores factors impacting restaurant popularity and customer satisfaction, providing actionable recommendations to enhance restaurant performance and market positioning.
-</p>
+ **Zomato Business Analysis** is an interactive analytics project built using **Power BI** and real-world Zomato restaurant data. The dashboard and accompanying reports offer clear visualizations of key insights into restaurant trends, customer preferences, and operational performance. It's designed for restaurateurs, food industry analysts, and decision-makers to quickly grasp complex food delivery and dining data.
 
-<hr />
+ ---
 
-<h2>🚀 Live Demo</h2>
-<p>
-  🔗 <a href="https://lookerstudio.google.com/s/iqQLXjPuc5M" target="_blank" rel="noopener noreferrer">Explore the interactive dashboard on Looker Studio</a>
-</p>
-<p>
-  🔗 <a href="https://hr-workforce-analysis.netlify.app" target="_blank" rel="noopener noreferrer">View the live project</a>
-</p>
-<hr />
+ ## 🌐 View Live Project
 
-<h2>📸 Project Screenshots</h2>
+ 👉 [Zomato Business Analysis Live](https://zomato-analysis.netlify.app/)
 
-<p align="center">
-  <img src="assets/snapshot.jpg" alt="Dashboard Snapshot" width="500" height="300" style="margin-bottom: 20px;" />
-  <br />
-</p>
+ ---
 
-<hr />
+ ## 🖼️ Cover Page
 
-<h2>🧐 Features</h2>
+ ![Cover Image](./assets/cover_image.png)
 
-<ul>
-  <li>📌 Data Cleaning & Preprocessing</li>
-  <li>📊 Exploratory Data Analysis (EDA)</li>
-  <li>📉 Risk Factor Analysis</li>
-  <li>📁 Segmentation of Restaurants and Customer Preferences</li>
-  <li>📈 Interactive Visualizations with Filters and Drill-downs</li>
-  <li>🔍 Insights Summary with Key Findings and Recommendations</li>
-  <li>📊 Comprehensive Dashboard for Data Exploration</li>
-</ul>
+ ---
 
-<hr />
+ ## ✨ Features
 
-<h2>🛠️ Installation Steps</h2>
+ - **📊 Visual Storytelling:** Understand trends in restaurant ratings, average costs, and online ordering behavior.
+ - **📌 Detailed Dashboards:** Summary, overview, and deep-dive views powered by Power BI.
+ - **🌍 Geographic Insights:** Heatmaps show regional restaurant density and performance.
+ - **🍽️ Cuisine Analysis:** Breakdowns of popular cuisines and their impact on business.
+ - **📈 Rating & Cost Trends:** Analyze the relationship between restaurant ratings and average cost.
+ - **📤 Exportable Reports:** Includes PDF and HTML formats for presentations and sharing.
+ - **💡 Actionable Insights:** Designed to help stakeholders make informed decisions regarding restaurant strategies and market positioning.
 
-<ol>
-  <li>
-    <strong>Clone the Repository</strong><br />
-    <pre><code>git clone khanfaisal79960/Zomato-Restaurant-Analysis
-cd Zomato-Restaurant-Analysis</code></pre>
-  </li>
-  <li>
-    <strong>Download Power BI</strong><br />
-    If not already installed, download it from <a href="https://powerbi.microsoft.com/desktop/" target="_blank" rel="noopener noreferrer">Power BI Desktop</a>.
-  </li>
-  <li>
-    <strong>Open the Dashboard</strong><br />
-    Open <code>dashboard/zomato_insights_dashboard.pbix</code> file in Power BI to explore the report offline.
-  </li>
-</ol>
+ ## 📁 Project Structure
 
-<hr />
+```
 
-<h2>💻 Built With</h2>
+D:.
+├───assets
+│       avg_cost.png
+│       avg_rat.png
+│       cover_image.png
+│       cuisine.png
+│       favicon.png
+│       geographic.png
+│       snapshot.jpg
+│       table_online.png
+│
+├───data
+│       zomato_data.xlsx
+│
+├───powerBI
+│       zomato_insights_dashboard.pbix
+│
+└───reports
+        index.html
+        summary.pdf
+        zomato_analysis_comprehensive_report.pdf
 
-<ul>
-  <li>📊 Power BI – for interactive dashboard creation</li>
-  <li>📈 Google Data Studio / Looker Studio – for web-based visual analytics</li>
-  <li>📋 Advanced Excel – used for data preprocessing and analysis</li>
-  <li>🔢 DAX – for calculations and data modeling in Power BI</li>
-</ul>
+```
+
+## 🧪 Setup & Usage
+
+1. **Open Power BI File:**
+
+   Open `powerBI/zomato_insights_dashboard.pbix` with [Power BI Desktop](https://powerbi.microsoft.com/desktop).
+
+2. **Explore Dataset:**
+
+   Raw dataset used: `data/zomato_data.xlsx`.
+
+3. **View Reports:**
+
+   - 📄 PDF: `reports/zomato_analysis_comprehensive_report.pdf`
+   - 🌐 HTML Summary: `reports/index.html`
+
+---
+
+## 📷 Screenshots
+
+### 🔹 Zomato Dashboard Snapshot
+![Zomato Dashboard Snapshot](./assets/snapshot.jpg)
+
+### 🔹 Table Booking & Online Order Analysis
+![Table Booking & Online Order Analysis](./assets/table_online.png)
+
+---
+
+## 👨‍💻 Developer
+
+**Faisal Khan**
+
+- 🌐 [Portfolio](https://khanfaisal.netlify.app)
+- 💻 [GitHub](https://github.com/khanfaisal79960)
+- 🔗 [LinkedIn](https://www.linkedin.com/in/khanfaisal79960)
+- ✍️ [Medium](https://medium.com/@khanfaisal79960)
+- 📷 [Instagram](https://instagram.com/mr._perfect_1004)
+
+---
+
+> Crafted with 📊 by Faisal Khan.
