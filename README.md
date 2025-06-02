@@ -6,10 +6,10 @@
 
  ---
 
- ## 🌐 View Live Project
+ ## 🌐 View Live Projec
 
- 👉 [Zomato Business Analysis Live](https://zomato-analysis.netlify.app/)
-
+ 👉 [View Report](https://zomato-analysis.netlify.app/)
+ 👉 [View Dashboard](https://lookerstudio.google.com/reporting/54eba0b5-ef36-484e-8c48-96c2ff3bbff9)
  ---
 
  ## 🖼️ Cover Page
