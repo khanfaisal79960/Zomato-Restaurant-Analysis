@@ -9,7 +9,7 @@
  ## 🌐 View Live Project
 
  👉 [View Report](https://zomato-analysis.netlify.app/)
- 👉 [View Dashboard](https://lookerstudio.google.com/reporting/54eba0b5-ef36-484e-8c48-96c2ff3bbff9)
+ 👉 [View Dashboard]([https://lookerstudio.google.com/reporting/54eba0b5-ef36-484e-8c48-96c2ff3bbff9](https://lookerstudio.google.com/s/mVTxkHE-tJk))
  ---
 
  ## 🖼️ Cover Page
